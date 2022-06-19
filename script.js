@@ -6,6 +6,8 @@ const DRAW = "Draw";
 const WIN = "Win";
 const LOSE = "Lose"
 
+let playerSelection = "";
+
 let playerScore = 0;
 let computerScore = 0;
 
@@ -58,21 +60,49 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-function setResults(playerScore, computerScore) {
-    
+function setResults(playerWin, computerWin) {
+    playerScore += playerWin;
+    computerScore += computerWin;
+}
+
+function getResults() {
+    if (playerScore > computerScore) {
+        console.log("You WIN the match! You scored " + playerScore + " against the computer's score of " + computerScore + ".");
+    } else if (playerScore < computerScore) {
+        console.log("You LOST the match. You scored " + playerScore + " against the computer's score of " + computerScore + ".");
+    } else {
+        console.log("It's a DRAW. You both scored " + playerScore + ".");
+    }
+
+}
+
+function isValidChoice(value) {
+    if (value == ROCK || value == PAPER || value == SCISSORS) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function game() {
     for (let i = 0; i < 5; i++) {
-        let playerSelection = prompt("Rock, Paper, or Scissors?");
+        
+        playerSelection = prompt("Rock, Paper, or Scissors?");
+        while (true) {
+            if (playerSelection === null) {
+                return;
+            } else {
+                playerSelection = playerSelection.toUpperCase()
+            }
 
-        if (playerSelection === null) {
-            return;
-        } else {
-            playerSelection = playerSelection.toUpperCase()
+            if (!isValidChoice(playerSelection)) {
+                console.log("Not a valid choice - type 'Rock', 'Paper', or 'Scissors'.");
+                playerSelection = prompt("Rock, Paper, or Scissors?");
+            } else {
+                break;
+            }
         }
-
-        // add logic if user doesn't enter correct input
+        
         // replace choices with numbers for easier play
         let computerSelection = computerPlay();
         let result = playRound(playerSelection, computerSelection);
@@ -80,14 +110,17 @@ function game() {
         switch (result[0]) {
             case LOSE:
                 console.log("You lose - the computer's " + result[1] + " beats your " + playerSelection + ".");
+                setResults(0, 1);
                 break;
             case WIN:
                 console.log("You win - your " + playerSelection + " beats the computer's " + result[1] + ".");
+                setResults(1, 0);
                 break;
             case DRAW:
                 console.log("It's a draw - you both chose " + playerSelection + ".");
                 break;
         }
-        
     }
+
+    getResults();
 }
