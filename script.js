@@ -24,34 +24,32 @@ function computerPlay() {
 }
 
 function playRound(playerSelection, computerSelection) {
-    playerSelection = playerSelection.toUpperCase();
-
     switch(playerSelection) {
         case ROCK:
             if (computerSelection == PAPER) {
-                return LOSE;
+                return [LOSE, PAPER];
             } else if (computerSelection == SCISSORS) {
-                return WIN;
+                return [WIN, SCISSORS];
             } else {
-                return DRAW;
+                return [DRAW, ROCK];
             }
             break;
         case PAPER:
             if (computerSelection == SCISSORS) {
-                return LOSE;
+                return [LOSE, SCISSORS];
             } else if (computerSelection == ROCK) {
-                return WIN;
+                return [WIN, ROCK];
             } else {
-                return DRAW;
+                return [DRAW, PAPER];
             }
             break;
         case SCISSORS:
             if (computerSelection == ROCK) {
-                return LOSE;
+                return [LOSE, ROCK];
             } else if (computerSelection == PAPER) {
-                return WIN;
+                return [WIN, PAPER];
             } else {
-                return DRAW;
+                return [DRAW, SCISSORS];
             }
             break;
     }
@@ -59,12 +57,23 @@ function playRound(playerSelection, computerSelection) {
 
 function game() {
     for (let i = 0; i < 5; i++) {
-        let playerSelection = prompt("Rock, Paper, or Scissors?");
+        let playerSelection = prompt("Rock, Paper, or Scissors?").toUpperCase();
         // add logic if user doesn't enter correct input
         // replace choices with numbers for easier play
         let computerSelection = computerPlay();
         let result = playRound(playerSelection, computerSelection);
 
-        console.log("You " + result + ".")
+        switch (result[0]) {
+            case LOSE:
+                console.log("You lose - the computer's " + result[1] + " beats your " + playerSelection + ".");
+                break;
+            case WIN:
+                console.log("You win - your " + playerSelection + " beats the computer's " + result[1] + ".");
+                break;
+            case DRAW:
+                console.log("It's a draw - you both chose " + playerSelection + ".");
+                break;
+        }
+        
     }
 }
