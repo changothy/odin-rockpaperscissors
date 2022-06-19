@@ -6,6 +6,9 @@ const DRAW = "Draw";
 const WIN = "Win";
 const LOSE = "Lose"
 
+let playerScore = 0;
+let computerScore = 0;
+
 function computerPlay() {
     let choice = Math.floor(Math.random() * 3) + 1;
     switch(choice) {
@@ -55,9 +58,20 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
+function setResults(playerScore, computerScore) {
+    
+}
+
 function game() {
     for (let i = 0; i < 5; i++) {
-        let playerSelection = prompt("Rock, Paper, or Scissors?").toUpperCase();
+        let playerSelection = prompt("Rock, Paper, or Scissors?");
+
+        if (playerSelection === null) {
+            return;
+        } else {
+            playerSelection = playerSelection.toUpperCase()
+        }
+
         // add logic if user doesn't enter correct input
         // replace choices with numbers for easier play
         let computerSelection = computerPlay();
