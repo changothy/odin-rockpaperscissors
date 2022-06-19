@@ -23,9 +23,6 @@ function computerPlay() {
     }
 }
 
-let playerSelection = ""; //field value
-let computerSelection = computerPlay();
-
 function playRound(playerSelection, computerSelection) {
     playerSelection = playerSelection.toUpperCase();
 
@@ -57,5 +54,17 @@ function playRound(playerSelection, computerSelection) {
                 return DRAW;
             }
             break;
+    }
+}
+
+function game() {
+    for (let i = 0; i < 5; i++) {
+        let playerSelection = prompt("Rock, Paper, or Scissors?");
+        // add logic if user doesn't enter correct input
+        // replace choices with numbers for easier play
+        let computerSelection = computerPlay();
+        let result = playRound(playerSelection, computerSelection);
+
+        console.log("You " + result + ".")
     }
 }
