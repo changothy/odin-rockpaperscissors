@@ -11,6 +11,7 @@ let playerSelection = "";
 let playerScore = 0;
 let computerScore = 0;
 
+// Calculate the computer's choice when playing the game
 function computerPlay() {
     let choice = Math.floor(Math.random() * 3) + 1;
     switch(choice) {
@@ -28,6 +29,7 @@ function computerPlay() {
     }
 }
 
+// Play out a round of rock paper scissors and determine the winner. Return the result and computer's choice in an array
 function playRound(playerSelection, computerSelection) {
     switch(playerSelection) {
         case ROCK:
@@ -60,11 +62,13 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
+// Tally the results of how many rounds each player has won
 function setResults(playerWin, computerWin) {
     playerScore += playerWin;
     computerScore += computerWin;
 }
 
+// Compare each player's score and determine the winner
 function getResults() {
     if (playerScore > computerScore) {
         console.log("You WIN the match! You scored " + playerScore + " against the computer's score of " + computerScore + ".");
@@ -76,6 +80,7 @@ function getResults() {
 
 }
 
+// Helper function to check the input is valid
 function isValidChoice(value) {
     if (value == ROCK || value == PAPER || value == SCISSORS) {
         return true;
@@ -84,6 +89,7 @@ function isValidChoice(value) {
     }
 }
 
+// Play through a game of rock paper scissors (5 rounds)
 function game() {
     for (let i = 0; i < 5; i++) {
         
@@ -103,7 +109,6 @@ function game() {
             }
         }
         
-        // replace choices with numbers for easier play
         let computerSelection = computerPlay();
         let result = playRound(playerSelection, computerSelection);
 
