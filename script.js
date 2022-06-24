@@ -91,7 +91,7 @@ function isValidChoice(value) {
 
 // Play through a game of rock paper scissors (5 rounds)
 function game() {
-    for (let i = 0; i < 5; i++) {
+    // for (let i = 0; i < 5; i++) {
         
         playerSelection = prompt("Rock, Paper, or Scissors?");
         while (true) {
@@ -125,7 +125,7 @@ function game() {
                 console.log("It's a draw - you both chose " + playerSelection + ".");
                 break;
         }
-    }
+    // }
 
     getResults();
 }
