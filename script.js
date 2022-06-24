@@ -6,6 +6,8 @@ const DRAW = "Draw";
 const WIN = "Win";
 const LOSE = "Lose"
 
+const BEST_OF = 5
+
 let playerSelection = "";
 
 let playerScore = 0;
@@ -62,25 +64,29 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-// Tally the results of how many rounds each player has won
+// Tally the results of how many rounds each player has won, and get outcome if someone hits the BEST_OF value
 function setResults(playerWin, computerWin) {
     playerScore += playerWin;
     computerScore += computerWin;
 
-    if (playerScore == 5 || computerScore == 5) {
+    if (playerScore == BEST_OF || computerScore == BEST_OF) {
         getOutcome();
     }
 }
 
-// Compare each player's score and determine the winner
+// Compare each player's score and display the winner
 function getOutcome() {
     const outcomeDiv = document.createElement("div");
     const body = document.querySelector("body");
 
     if (playerScore > computerScore) {
-        outcomeDiv.textContent = "You WIN the match! You scored " + playerScore + " against the computer's score of " + computerScore + ".";
+        outcomeDiv.textContent = "You WIN the match! ";
     } else if (playerScore < computerScore) {
-        outcomeDiv.textContent = "You LOST the match. You scored " + playerScore + " against the computer's score of " + computerScore + ".";
+        outcomeDiv.textContent = "You LOST the match. ";
+    }
+
+    if (playerScore == 0 || computerScore == 0) {
+        outcomeDiv.textContent += "FLAWLESS VICTORY"
     }
 
     body.appendChild(outcomeDiv);
@@ -102,7 +108,6 @@ function getRoundResult(result, button) {
             return "It's a draw - you both chose " + button.id + ".";
     }
 }
-
 
 
 const buttons = document.querySelectorAll("button");
