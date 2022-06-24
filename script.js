@@ -129,3 +129,12 @@ function game() {
 
     getResults();
 }
+
+const buttons = document.querySelectorAll("button");
+
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        console.log(button.id, computerPlay);
+        // playRound(button.id, computerPlay);
+    });
+});
