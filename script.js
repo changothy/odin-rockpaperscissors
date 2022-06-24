@@ -66,18 +66,28 @@ function playRound(playerSelection, computerSelection) {
 function setResults(playerWin, computerWin) {
     playerScore += playerWin;
     computerScore += computerWin;
+
+    if (playerScore == 5 || computerScore == 5) {
+        getOutcome();
+    }
 }
 
 // Compare each player's score and determine the winner
-function getResults() {
+function getOutcome() {
+    const outcomeDiv = document.createElement("div");
+    const body = document.querySelector("body");
+
     if (playerScore > computerScore) {
-        console.log("You WIN the match! You scored " + playerScore + " against the computer's score of " + computerScore + ".");
+        outcomeDiv.textContent = "You WIN the match! You scored " + playerScore + " against the computer's score of " + computerScore + ".";
     } else if (playerScore < computerScore) {
-        console.log("You LOST the match. You scored " + playerScore + " against the computer's score of " + computerScore + ".");
-    } else {
-        console.log("It's a DRAW. You both scored " + playerScore + ".");
+        outcomeDiv.textContent = "You LOST the match. You scored " + playerScore + " against the computer's score of " + computerScore + ".";
     }
 
+    body.appendChild(outcomeDiv);
+
+    buttons.forEach((button) => {
+        button.setAttribute("disabled", true);
+    });
 }
 
 function getRoundResult(result, button) {
