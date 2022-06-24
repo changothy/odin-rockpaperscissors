@@ -80,61 +80,32 @@ function getResults() {
 
 }
 
-// Helper function to check the input is valid
-function isValidChoice(value) {
-    if (value == ROCK || value == PAPER || value == SCISSORS) {
-        return true;
-    } else {
-        return false;
+function getRoundResult(result, button) {
+    switch (result[0]) {
+        case LOSE:
+            setResults(0, 1);    
+            return "You lose - the computer's " + result[1] + " beats your " + button.id + ".";
+        case WIN:
+            setResults(1, 0);    
+            return "You win - your " + button.id + " beats the computer's " + result[1] + ".";
+        case DRAW:
+            return "It's a draw - you both chose " + button.id + ".";
     }
 }
 
-// Play through a game of rock paper scissors (5 rounds)
-function game() {
-    // for (let i = 0; i < 5; i++) {
-        
-        playerSelection = prompt("Rock, Paper, or Scissors?");
-        while (true) {
-            if (playerSelection === null) {
-                return;
-            } else {
-                playerSelection = playerSelection.toUpperCase()
-            }
 
-            if (!isValidChoice(playerSelection)) {
-                console.log("Not a valid choice - type 'Rock', 'Paper', or 'Scissors'.");
-                playerSelection = prompt("Rock, Paper, or Scissors?");
-            } else {
-                break;
-            }
-        }
-        
-        let computerSelection = computerPlay();
-        let result = playRound(playerSelection, computerSelection);
-
-        switch (result[0]) {
-            case LOSE:
-                console.log("You lose - the computer's " + result[1] + " beats your " + playerSelection + ".");
-                setResults(0, 1);
-                break;
-            case WIN:
-                console.log("You win - your " + playerSelection + " beats the computer's " + result[1] + ".");
-                setResults(1, 0);
-                break;
-            case DRAW:
-                console.log("It's a draw - you both chose " + playerSelection + ".");
-                break;
-        }
-    // }
-
-    getResults();
-}
 
 const buttons = document.querySelectorAll("button");
 
 buttons.forEach((button) => {
-    button.addEventListener('click', () => {
-        console.log(button.id, computerPlay);
-        // playRound(button.id, computerPlay);
+    button.addEventListener('click', (e) => {
+        // console.log(button.id, computerPlay);
+        
+        const resultsDiv = document.querySelector("#results");
+        resultsDiv.textContent = getRoundResult(playRound(button.id, computerPlay()), button);
+
+        const scoreDiv = document.querySelector("#score");
+        scoreDiv.textContent = "Player: " + playerScore + " | Computer: " + computerScore;
     });
 });
+
